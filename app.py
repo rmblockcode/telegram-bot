@@ -59,11 +59,11 @@ def send_inlineurl(chat_id):
  
     return response
 
-def send_image(chat_id):
+def send_image(chat_id, photo):
     url = f'https://api.telegram.org/bot{TOKEN}/sendPhoto'
     payload = {
         'chat_id': chat_id,
-        'photo': "https://imgs.search.brave.com/hzL_sxK7wUBl9UV41_m-8wFPxAbiT0czbk9us0hOULc/rs:fit:751:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5Y/OUxfUGtZTklFUGVB/U2RmQUVBN1dBSGFF/ciZwaWQ9QXBp",
+        'photo': photo,
         'caption': "This is a sample image"
     }
  
@@ -96,8 +96,13 @@ def index():
             send_poll(chat_id)
         elif text == 'url':
             send_inlineurl(chat_id)
-        elif text == 'imagen':
-            send_image(chat_id)
+        elif text == 'imagen': # Envio de imagenes con url
+            photo = "https://imgs.search.brave.com/hzL_sxK7wUBl9UV41_m-8wFPxAbiT0czbk9us0hOULc/rs:fit:751:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC5Y/OUxfUGtZTklFUGVB/U2RmQUVBN1dBSGFF/ciZwaWQ9QXBp"
+            send_image(chat_id, photo)
+        elif text == 'imagen_local': # Envio de imagenes local
+            image_path = './image_test.jpeg'
+            with open(image_path, 'rb') as image_file:
+                send_image(chat_id, image_file)
         elif text == 'audio':
             send_image(chat_id)
         else:
